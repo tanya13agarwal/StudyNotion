@@ -41,7 +41,6 @@ function App() {
     // set width to screen size by w-screen
     // min-h-screen used to make an element span the entire height of the viewport minimum
    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
-   <p>helloooooo</p>
     <Navbar/>
     <Routes>
       <Route path="/" element={<Home/>} />
