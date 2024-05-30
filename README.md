@@ -1,3 +1,1 @@
 # StudyNotion Edtech Project
-
-// add
