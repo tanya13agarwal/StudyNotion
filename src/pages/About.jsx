@@ -4,18 +4,18 @@ import FoundingStory from "../assets/Images/FoundingStory.png"
 import BannerImage1 from "../assets/Images/aboutus1.webp"
 import BannerImage2 from "../assets/Images/aboutus2.webp"
 import BannerImage3 from "../assets/Images/aboutus3.webp"
-import Footer from "../components/common/Footer"
+// import Footer from "../components/common/Footer"
 import ContactFormSection from "../components/core/AboutPage/ContactFormSection"
 import LearningGrid from "../components/core/AboutPage/LearningGrid"
 import Quote from "../components/core/AboutPage/Quote"
 import StatsComponenet from "../components/core/AboutPage/Stats"
 import HighlightText from "../components/core/HomePage/HighlightText"
+import ReviewSlider from "../components/common/ReviewSlider"
+import Footer from "../components/common/Footer"
 
 const About = () => {
   return (
     <div>
-
-      {/* section 1 */}
       <section className="bg-richblack-700">
         <div className="relative mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-center text-white">
           <header className="mx-auto py-20 text-4xl font-semibold lg:w-[70%]">
@@ -37,7 +37,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* section 2 */}
       <section className="border-b border-richblack-700">
         <div className="mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-richblack-500">
           <div className="h-[100px] "></div>
@@ -45,12 +44,9 @@ const About = () => {
         </div>
       </section>
 
-      {/* section 3 */}
       <section>
         <div className="mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-richblack-500">
-          {/* founding story wala div */}
           <div className="flex flex-col items-center gap-10 lg:flex-row justify-between">
-            {/* founding story left box */}
             <div className="my-24 flex lg:w-[50%] flex-col gap-10">
               <h1 className="bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#FCB045] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] ">
                 Our Founding Story
@@ -73,7 +69,6 @@ const About = () => {
               </p>
             </div>
 
-            {/* founding story right box */}
             <div>
               <img
                 src={FoundingStory}
@@ -82,11 +77,7 @@ const About = () => {
               />
             </div>
           </div>
-
-          {/* vision and mission wala parent div */}
           <div className="flex flex-col items-center lg:gap-10 lg:flex-row justify-between">
-            
-            {/* left box */}
             <div className="my-24 flex lg:w-[40%] flex-col gap-10">
               <h1 className="bg-gradient-to-b from-[#FF512F] to-[#F09819] bg-clip-text text-4xl font-semibold text-transparent lg:w-[70%] ">
                 Our Vision
@@ -100,8 +91,6 @@ const About = () => {
                 dynamic and interactive learning experience.
               </p>
             </div>
-
-            {/* right box */}
             <div className="my-24 flex lg:w-[40%] flex-col gap-10">
               <h1 className="bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text text-4xl font-semibold lg:w-[70%] ">
               Our Mission
@@ -114,23 +103,21 @@ const About = () => {
         </div>
       </section>
 
-      {/* section 4 */}
       <StatsComponenet />
-
-      {/* section 5 */}
       <section className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white">
         <LearningGrid />
         <ContactFormSection />
       </section>
 
-      
       <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
         {/* Reviws from Other Learner */}
         <h1 className="text-center text-4xl font-semibold mt-8">
           Reviews from other learners
         </h1>
         {/* <ReviewSlider /> */}
+        <ReviewSlider />
       </div>
+      {/* <Footer /> */}
       <Footer />
     </div>
   )
