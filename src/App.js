@@ -1,9 +1,7 @@
 import "./App.css";
-import {Route, Routes } from "react-router-dom";
+import {Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home"
 import Navbar from "./components/common/Navbar"
-import About from "./pages/About";
-
 import OpenRoute from "./components/core/Auth/OpenRoute"
 
 import Login from "./pages/Login"
@@ -11,7 +9,7 @@ import Signup from "./pages/Signup"
 import ForgotPassword from "./pages/ForgotPassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import VerifyEmail from "./pages/VerifyEmail";
-
+import About from "./pages/About";
 import Contact from "./pages/Contact";
 import MyProfile from "./components/core/Dashboard/MyProfile";
 import Dashboard from "./pages/Dashboard";
@@ -22,12 +20,14 @@ import { useDispatch, useSelector } from "react-redux";
 import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
 import Cart from "./components/core/Dashboard/Cart";
 import { ACCOUNT_TYPE } from "./utils/constants";
-
 import AddCourse from "./components/core/Dashboard/AddCourse";
 import MyCourses from "./components/core/Dashboard/MyCourses";
 import EditCourse from "./components/core/Dashboard/EditCourse";
 import Catalog from "./pages/Catalog";
-
+import CourseDetails from "./pages/CourseDetails";
+import ViewCourse from "./pages/ViewCourse";
+import VideoDetails from "./components/core/ViewCourse/VideoDetails";
+import Instructor from "./components/core/Dashboard/InstructorDashboard/Instructor";
 
 function App() {
 
@@ -38,12 +38,13 @@ function App() {
 
 
   return (
-    // set width to screen size by w-screen
-    // min-h-screen used to make an element span the entire height of the viewport minimum
    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
     <Navbar/>
     <Routes>
       <Route path="/" element={<Home/>} />
+      <Route path="catalog/:catalogName" element={<Catalog/>} />
+      <Route path="courses/:courseId" element={<CourseDetails/>} />
+      
       <Route
           path="signup"
           element={
@@ -89,11 +90,11 @@ function App() {
         />  
 
     <Route
-          path="about"
+          path="/about"
           element={
-            <OpenRoute>
+            
               <About />
-            </OpenRoute>
+            
           }
         />
     <Route path="/contact" element={<Contact />} />
@@ -103,9 +104,10 @@ function App() {
         <PrivateRoute>
           <Dashboard />
         </PrivateRoute>
-      } 
+      }
     >
       <Route path="dashboard/my-profile" element={<MyProfile />} />
+      
       <Route path="dashboard/Settings" element={<Settings />} />
       
 
@@ -118,10 +120,10 @@ function App() {
         )
       }
 
-      {/* if account type is INSTRUCTOR then add :- add-course, my-courses, edit-course in dashboard */}
       {
         user?.accountType === ACCOUNT_TYPE.INSTRUCTOR && (
           <>
+          <Route path="dashboard/instructor" element={<Instructor />} />
           <Route path="dashboard/add-course" element={<AddCourse />} />
           <Route path="dashboard/my-courses" element={<MyCourses />} />
           <Route path="dashboard/edit-course/:courseId" element={<EditCourse />} />
@@ -134,6 +136,26 @@ function App() {
     </Route>
 
     
+      <Route element={
+        <PrivateRoute>
+          <ViewCourse />
+        </PrivateRoute>
+      }>
+
+      {
+        user?.accountType === ACCOUNT_TYPE.STUDENT && (
+          <>
+          <Route 
+            path="view-course/:courseId/section/:sectionId/sub-section/:subSectionId"
+            element={<VideoDetails />}
+          />
+          </>
+        )
+      }
+
+      </Route>
+
+
 
     <Route path="*" element={<Error />} />
 
