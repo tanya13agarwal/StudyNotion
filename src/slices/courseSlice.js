@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  // by default step=1 highlighted dikhega- here step is the 3 steps of form filling for any course upload by instructor
   step: 1,
   course: null,
   editCourse: false,

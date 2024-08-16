@@ -2,16 +2,12 @@ import { createSlice } from "@reduxjs/toolkit"
 import { toast } from "react-hot-toast"
 
 const initialState = {
-    // if cart not in localStorage then initialize empty cart
   cart: localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
     : [],
-    
   total: localStorage.getItem("total")
     ? JSON.parse(localStorage.getItem("total"))
     : 0,
-
-     // agr totalItems localStorage me available hai to le aao vrna initialize with 0
   totalItems: localStorage.getItem("totalItems")
     ? JSON.parse(localStorage.getItem("totalItems"))
     : 0,

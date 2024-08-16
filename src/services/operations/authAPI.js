@@ -83,12 +83,10 @@ export function signUp(
   }
 }
 
-// backend se login function ko call krrha through its API
 export function login(email, password, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...")
     dispatch(setLoading(true))
-    // post request for LOGIN_API
     try {
       const response = await apiConnector("POST", LOGIN_API, {
         email,
@@ -107,7 +105,9 @@ export function login(email, password, navigate) {
         ? response.data.user.image
         : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`
       dispatch(setUser({ ...response.data.user, image: userImage }))
+      
       localStorage.setItem("token", JSON.stringify(response.data.token))
+      localStorage.setItem("user", JSON.stringify(response.data.user))
       navigate("/dashboard/my-profile")
     } catch (error) {
       console.log("LOGIN API ERROR............", error)
@@ -115,77 +115,6 @@ export function login(email, password, navigate) {
     }
     dispatch(setLoading(false))
     toast.dismiss(toastId)
-  }
-}
-
-
-
-// loader show krrha, backend se cheezo ko call krrha
-// accordingly updations kr rha and loading is false again
-export function getPasswordResetToken(email, setEmailSent) {
-  return async (dispatch) => {
-    // sbse phle toast k through recognise kro
-    // jb tak backend ki call jaa rhi h , kaam horha tb tak loading true krdo
-    const toastId = toast.loading("Loading...") 
-    dispatch(setLoading(true))
-    try {
-      // body k andar srf email isliye de rhe kyuki resetPasswordToken in backend me usne body k andar srf email lia tha
-      const response = await apiConnector("POST", RESETPASSTOKEN_API, {
-        email,
-      })
-
-      console.log("RESETPASSTOKEN RESPONSE............", response)
-
-      // ek baar check krlo successfull response hai ya nhi
-      if (!response.data.success) {
-        // agr error h then throw the error 
-        throw new Error(response.data.message)
-      }
-
-      // if no error, send a toast
-      toast.success("Reset Email Sent")
-      setEmailSent(true)
-    } catch (error) {
-      console.log("RESETPASSTOKEN ERROR............", error)
-      toast.error("Failed To Send Reset Email")
-    }
-    toast.dismiss(toastId)
-    dispatch(setLoading(false))
-  }
-}
-
-
-// backend k resetPassword function ko call krege
-export function resetPassword(password, confirmPassword, token, navigate) {
-  return async (dispatch) => {
-    // loading true
-    const toastId = toast.loading("Loading...")
-    dispatch(setLoading(true))
-    try {
-        // api call :- post type of call to resetPassword controller in backend
-        const response = await apiConnector("POST", RESETPASSWORD_API, {
-            password,
-            confirmPassword,
-            token,
-        })
-
-        console.log("RESETPASSWORD RESPONSE............", response)
-
-        if (!response.data.success) {
-            throw new Error(response.data.message)
-        }
-
-        toast.success("Password Reset Successfully")
-        navigate("/login")
-    }
-    
-    catch (error) {
-        console.log("RESETPASSWORD ERROR............", error)
-        toast.error("Failed To Reset Password")
-    }
-
-    toast.dismiss(toastId)
-    dispatch(setLoading(false))
   }
 }
 
@@ -203,4 +132,48 @@ export function logout(navigate) {
 
 
 
+export function getPasswordResetToken(email , setEmailSent) {
+  return async(dispatch) => {
+    dispatch(setLoading(true));
+    try{
+      const response = await apiConnector("POST", RESETPASSTOKEN_API, {email,})
 
+      console.log("RESET PASSWORD TOKEN RESPONSE....", response);
+
+      if(!response.data.success) {
+        throw new Error(response.data.message);
+      }
+
+      toast.success("Reset Email Sent");
+      setEmailSent(true);
+    }
+    catch(error) {
+      console.log("RESET PASSWORD TOKEN Error", error);
+      toast.error("Failed to send email for resetting password");
+    }
+    dispatch(setLoading(false));
+  }
+}
+
+export function resetPassword(password, confirmPassword, token) {
+  return async(dispatch) => {
+    dispatch(setLoading(true));
+    try{
+      const response = await apiConnector("POST", RESETPASSWORD_API, {password, confirmPassword, token});
+
+      console.log("RESET Password RESPONSE ... ", response);
+
+
+      if(!response.data.success) {
+        throw new Error(response.data.message);
+      }
+
+      toast.success("Password has been reset successfully");
+    }
+    catch(error) {
+      console.log("RESET PASSWORD TOKEN Error", error);
+      toast.error("Unable to reset password");
+    }
+    dispatch(setLoading(false));
+  }
+}

@@ -110,6 +110,3 @@ export function deleteProfile(token, navigate) {
     toast.dismiss(toastId)
   }
 }
-
-
-
