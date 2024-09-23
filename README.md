@@ -9,7 +9,7 @@
 
 <h2>🚀 Access the Website </h2>
 
-[To be added](tobeadded)
+[StudyNotion Website](https://study-notion-pi-black.vercel.app/)
 
   
 <br></br>
